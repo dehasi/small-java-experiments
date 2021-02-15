@@ -71,8 +71,9 @@ class AndCollector implements Collector<String, String, String> {
     }
 
     public static void main(String[] args) {
-        System.out.println(Stream.of("a").collect(joinAnd()));
-        System.out.println(Stream.of("a", "b").collect(joinAnd(":", " or ")));
-        System.out.println(Stream.of("a", "b", "c").collect(joinAnd("; ")));
+        System.out.println(Stream.of("a").collect(joinAnd())); // a
+        System.out.println(Stream.of("a", "b").collect(joinAnd(":", " or "))); // a or b
+        System.out.println(Stream.of("a", "b", "c").collect(joinAnd(": ", " or "))); // a: b or c
+        System.out.println(Stream.of("a", "b", "c").collect(joinAnd("; "))); // a; b and c
     }
 }
