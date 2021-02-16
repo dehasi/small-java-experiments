@@ -1,5 +1,6 @@
 package mystream;
 
+import java.math.BigDecimal;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -36,9 +37,10 @@ class Potok<IN, OUT> {
     }
 
     public static void main(String[] args) {
-        String collect = Potok.of(1, 2, 3, 4)
-                              .map(x -> x * x)
-                              .collect(AndCollector.joinAnd());
-        System.out.println(collect);
+        String result = Potok.of(1, 2, 3, 4)
+                             .map(x -> x + 2d)
+                             .map(BigDecimal::new)
+                             .collect(AndCollector.joinAnd());
+        System.out.println(result);
     }
 }
