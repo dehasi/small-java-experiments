@@ -21,7 +21,7 @@ class MyArraySpliterator<TYPE> implements Spliterator<TYPE> {
     }
 
     @SafeVarargs
-    private MyArraySpliterator(TYPE... elements) {
+    MyArraySpliterator(TYPE... elements) {
         this.array = Objects.requireNonNull(elements);
         size = array.length;
         cur = 0;
