@@ -7,6 +7,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
 
+import static java.util.Collections.emptySet;
 import static java.util.Collections.singleton;
 import static java.util.stream.Collector.Characteristics.UNORDERED;
 
@@ -57,7 +58,7 @@ class AndCollector<TYPE> implements Collector<TYPE, StringBuilder, String> {
 
     @Override
     public Set<Characteristics> characteristics() {
-        return singleton(UNORDERED);
+        return emptySet();
     }
 
     public static <TYPE> AndCollector<TYPE> joinAnd() {

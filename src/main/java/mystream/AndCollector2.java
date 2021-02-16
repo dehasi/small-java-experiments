@@ -1,5 +1,6 @@
 package mystream;
 
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
@@ -11,17 +12,15 @@ import static java.util.Collections.emptySet;
 
 class AndCollector2<TYPE> implements Collector<TYPE, AndCollector2.Accumulator, String> {
 
-    private final String sep;
-    private final String and;
+    private final Accumulator accumulator;
 
     private AndCollector2(String sep, String and) {
-        this.sep = sep;
-        this.and = and;
+        accumulator = new Accumulator(sep, and);
     }
 
     @Override
     public Supplier<AndCollector2.Accumulator> supplier() {
-        return () -> new AndCollector2.Accumulator(sep, and);
+        return () -> accumulator;
     }
 
     @Override
@@ -65,17 +64,17 @@ class AndCollector2<TYPE> implements Collector<TYPE, AndCollector2.Accumulator, 
         private String last;
 
         Accumulator(String sep, String and) {
-            this.sep = sep;
-            this.and = and;
+            this.sep = Objects.requireNonNull(sep);
+            this.and = Objects.requireNonNull(and);
         }
 
         Accumulator merge(Accumulator accumulator) {
-            result.append(last).append(accumulator.result);
-            this.last = accumulator.last;
+            //result.append(last).append(accumulator.result);
+            //this.last = accumulator.last;
             return this;
         }
 
-        void append(Object o) {
+        synchronized void append(Object o) {
             if (result.length() == 0) {
                 result.append(String.format("%s", o));
                 return;

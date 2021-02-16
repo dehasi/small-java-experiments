@@ -32,8 +32,8 @@ class AndCollector2Test {
 
     @Test
     void joinAnd_worksInParallel() {
-        String collect = IntStream.range(1, 100).boxed().map(String::valueOf).parallel().collect(joining(","));
-        String collect1 = IntStream.range(1, 100).boxed().map(String::valueOf).parallel().collect(joinAnd(","));
+        String collect = IntStream.range(1, 10).boxed().map(String::valueOf).parallel().collect(joining(","));
+        String collect1 = IntStream.range(1, 10).boxed().map(String::valueOf).parallel().collect(joinAnd(","));
         System.err.println(collect);
         System.err.println(collect1);
         // assertTrue(collect.endsWith(" and 100"));
