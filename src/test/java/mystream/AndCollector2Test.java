@@ -6,10 +6,10 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.joining;
-import static mystream.AndCollector.joinAnd;
+import static mystream.AndCollector2.joinAnd;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class AndCollectorTest {
+class AndCollector2Test {
 
     @Test
     void joinAnd_worksWithStrings() {
