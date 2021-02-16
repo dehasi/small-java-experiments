@@ -1,0 +1,39 @@
+package mystream;
+
+import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+import static mystream.AndCollector.joinAnd;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+class AndCollectorTest {
+
+    @Test
+    void joinAnd_worksWithStrings() {
+        assertEquals(Stream.of().collect(joinAnd()), "");
+        assertEquals(Stream.of("a").collect(joinAnd()), "a");
+        assertEquals(Stream.of("a", "b").collect(joinAnd(":", " or ")), "a or b");
+        assertEquals(Stream.of("a", "b", "c").collect(joinAnd(": ", " or ")), "a: b or c");
+        assertEquals(Stream.of("a", "b", "c").collect(joinAnd("; ")), "a; b and c");
+    }
+
+    @Test
+    void joinAnd_worksWithInts() {
+        assertEquals(Stream.of(1, 2, 3).collect(joinAnd()), "1, 2 and 3");
+    }
+
+    @Test
+    void joinAnd_nulls() {
+        assertEquals(Stream.of(null, null).collect(joinAnd()), "null and null");
+    }
+
+    @Test
+    void joinAnd_worksInParallel() {
+        String collect = IntStream.range(1, 100).boxed().parallel().collect(joinAnd());
+        assertTrue(collect.endsWith(" and 100"));
+    }
+}
