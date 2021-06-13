@@ -1,4 +1,3 @@
 package jcip.annotations;
 
-public @interface ThreadSafe {
-}
+public @interface ThreadSafe {}
